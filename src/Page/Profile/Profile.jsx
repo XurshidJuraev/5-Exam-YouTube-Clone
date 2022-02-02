@@ -24,6 +24,14 @@ import NewVideo from '../../Assets/Images/NewVideo.svg';
 import qongiroqcha from '../../Assets/Images/qongiroqcha.svg';
 import userPic from '../../Assets/Images/Userpic.png';
 import Settings from '../../Assets/Images/Settings.svg';
+import ChannelBanner from '../../Assets/Images/ChannelBanner.png';
+import GlobalVideo from '../../Assets/Images/GlobalVideo.png';
+import Sharla from '../../Assets/Images/Sharla.png';
+import Lampa from '../../Assets/Images/Lampa.png';
+import TuvakdagiGuul from '../../Assets/Images/TuvkdagiGul.png';
+import TarvuzVideo from '../../Assets/Images/TarvuzVideo.png';
+import QoraKamalak from '../../Assets/Images/QoraKamalak.png';
+import Arqon from '../../Assets/Images/Arqon.png';
 
 
 
@@ -85,10 +93,12 @@ function Profile() {
 
 		<div className="container nav">
 				<div className="hedr-margn">
-				<div className="flex">
-				<img src={HomeImage} alt="YouTubeImage" />
-				<p className='home'>Home</p>
-				</div>
+				<NavLink className='tdn' to={'/'}>
+					<div className="flex">
+						<img src={HomeImage} alt="YouTubeImage" />
+						<p className='home'>Home</p>
+					</div>
+				</NavLink>
 				<div className="flex">
 				<img src={Trending} alt="YouTubeImage" />
 				<p className='hader-wit'>Trending</p>
@@ -149,8 +159,27 @@ function Profile() {
 				</div>
 			</div>
 
-			<main className='main'>
-					<img
+			<main className='main alik'>
+
+				<img src={ChannelBanner} alt="YouTubeImage" />
+				<div className="flex aic">
+				<img className='hedr-user-img' src={user.avatar} alt="YouTubeImage" />
+				<div className="klonf">
+				<p className='hader-dolli'>{user.first_name + ' ' + user.last_name}</p>
+				<p className='box-like grtdfe'>245K subscribed</p>
+				</div>
+				</div>
+
+				<ul className='home-list'>
+					<li><p className='home'>Home</p></li>
+					<li><p className='hader-wit'>Videos</p></li>
+					<li><p className='hader-wit'>Playlists</p></li>
+					<li><p className='hader-wit'>Channels</p></li>
+					<li><p className='hader-wit'>Discussion</p></li>
+					<li><p className='hader-wit'>About</p></li>
+				</ul>
+				
+					{/* <img
 						src={user.avatar}
 						width={400}
 						height={400}
@@ -158,7 +187,7 @@ function Profile() {
 						/>
 
 						<h1 className='center'>{user.first_name + ' ' + user.last_name}</h1>
-					<h2 className='center'>{user.email}</h2>
+					<h2 className='center'>{user.email}</h2> */}
 			</main>
 					{/* <Stack spacing={2} direction="row">
 						<Button onClick={() => navigate(-1)} variant="contained">Home</Button>
