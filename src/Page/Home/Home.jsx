@@ -37,11 +37,11 @@ import youTubeRasm4 from '../../Assets/Images/Telescopes.png';
 
 
 
-
 function Home() {
 	const [users, setUsers] = React.useState([]);
+	const [twousers, setTwoUsers] = React.useState([]);
 	const [setLoading] = React.useState(true)
-
+	
 	React.useEffect(() => {
 		// Immediately invoked function
 		(async () => {
@@ -49,26 +49,9 @@ function Home() {
 				const response = await fetch('https://reqres.in/api/users');
 				const data = await response.json();
 				
+				
 				if (data?.data?.length > 0) {
 					setUsers([...data.data]);
-					setLoading(false);
-				}
-			} catch (err) {
-				console.log(err);
-			}
-		})();
-	}, []);
-	
-	React.useEffect(() => {
-		// Immediately invoked function
-		(async () => {
-			try {
-				const clear = await fetch('https://jsonplaceholder.typicode.com/photos');
-				const floue = await clear.json();
-				
-				if (floue?.floue?.length > 0) {
-					setUsers([...floue.floue]);
-					setLoading(false);
 				}
 			} catch (err) {
 				console.log(err);
@@ -154,7 +137,7 @@ function Home() {
 
 				{users.length > 0 &&
 					users.map((user) => (
-						<NavLink className='tdn' to={'channel/' + user.id}>
+						<NavLink  key={user.id} className='tdn' to={'channel/' + user.id}>
 							<div className="flex">
 							<img className='user-imag_hedr' src={user.avatar} alt="YouTubeImage" />
 							<p className='hader-wit'>{user.first_name}</p>
@@ -170,19 +153,27 @@ function Home() {
 			</div>
 
 			<main className='main'>
-				<div className="flex aic">
-				<img className='hedr-user-img' src={user} alt="YouTubeImage" />
-				<p className='hader-dolli'>Dollie Blair</p>
+				{users.length > 0 &&
+					users.slice(0, 1).map((user) => (
+						<div  key={user.id}  className="flex aic">
+						<NavLink className='flex aic tdn' to={'channel/' + user.id}>
+							<img className='hedr-user-img' src={user.avatar} alt="YouTubeImage" />
+							<p className='hader-dolli'>{user.first_name}</p>
+						</NavLink>
 				</div>
+					))}
 				
 				<div className='box'>
-					<div className='box-heding'>
+				{users.length > 0 &&
+					users.map((user) => (
+						<NavLink  key={user.id}  className='tdn' to={'video/' + user.id}>
+							<div className='box-heding'>
 						<div className="box-love">
 							<div className="box-image">
-								<img src={youTubeRasm1} alt="YouTubeImage" />
+								<img className="box-image" src={user.avatar} alt="YouTubeImage" />
 							</div>
 							<div className="box-text">
-								<h3 className='box-title'>A Brief History Of Creation</h3>
+								<h3 className='box-title'>{user.last_name + " " + user.first_name}</h3>
 								<div className="box-flex">
 									<p className='box-like'>80k views  ·  3 days ago</p>
 									<p className='box-like'>Dollie Blair</p>
@@ -190,223 +181,63 @@ function Home() {
 							</div>
 						</div>
 					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm2} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Selecting The Right Hotel</h3>
-								<div className="box-flex">
-									<p className='box-like'>123k views  ·  1 months ago</p>
-									<p className='box-like'>Dollie Blair</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm3} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Asteroids</h3>
-								<div className="box-flex">
-									<p className='box-like'>43k views  ·  12 days ago</p>
-									<p className='box-like'>Dollie Blair</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm4} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Telescopes 101</h3>
-								<div className="box-flex">
-									<p className='box-like'>11k views  ·  6 months ago</p>
-									<p className='box-like'>Dollie Blair</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm5} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Medical Care Is Just</h3>
-								<div className="box-flex">
-									<p className='box-like'>18k views  ·  2 days ago</p>
-									<p className='box-like'>Dollie Blair</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm6} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Moon Gazing</h3>
-								<div className="box-flex">
-									<p className='box-like'>67k views  ·  4 months ago</p>
-									<p className='box-like'>Dollie Blair</p>
-								</div>
-							</div>
-						</div>
-					</div>
+						</NavLink>
+					))}
 				</div>
 				<h3>Recommended</h3>
+
 				<div className="box-big">
-					<div className='box-heding2'>
+				{users.length > 0 &&
+					users.slice(3, 6).map((user) => (
+						<NavLink  key={user.id}  className='tdn' to={'video/' + user.id}>
+							<div className='box-heding2'>
 							<div className="box-love">
-								<div className="box-image">
-									<img src={youTubeRasm7} alt="YouTubeImage" />
+								<div className="big-box-imag">
+									<img className="big-box-imag" src={user.avatar} alt="YouTubeImage" />
 								</div>
 								<div className="box-text">
-									<h3 className='box-title'>Dude You Re Getting A Telescope</h3>
+									<h3 className='box-title'>{user.last_name + " " + user.first_name}</h3>
 									<div className="box-flex">
 										<p className='box-like'>34k views  ·  5 months ago</p>
-										<p className='box-like'>Gussie French</p>
+										<p className='box-like'>{user.last_name}</p>
 									</div>
 								</div>
 							</div>
-					</div>
-					<div className='box-heding2'>
-							<div className="box-love">
-								<div className="box-image">
-									<img src={youTubeRasm8} alt="YouTubeImage" />
-								</div>
-								<div className="box-text">
-									<h3 className='box-title'>Moon Gazing</h3>
-									<div className="box-flex">
-										<p className='box-like'>54k views  ·  11 months ago</p>
-										<p className='box-like'>Edward Osborne</p>
-									</div>
-								</div>
-							</div>
-					</div>
-					<div className='box-heding2'>
-							<div className="box-love">
-								<div className="box-image">
-									<img src={youTubeRasm9} alt="YouTubeImage" />
-								</div>
-								<div className="box-text">
-									<h3 className='box-title'>Moon Gazing</h3>
-									<div className="box-flex">
-										<p className='box-like'>125k views  ·  4 months ago</p>
-										<p className='box-like'>Dollie Blair</p>
-									</div>
-								</div>
-							</div>
-					</div>
+					</div> 	
+						</NavLink>
+					))}
 				</div>
 
-				<div className="flex aic">
-				<img className='hedr-user-img' src={user} alt="YouTubeImage" />
-				<p className='hader-dolli'>Dollie Blair</p>
+				{users.length > 0 &&
+					users.slice(1, 2).map((user) => (
+						<div  key={user.id}  className="flex aic">
+						<NavLink className='flex aic tdn' to={'channel/' + user.id}>
+							<img className='hedr-user-img' src={user.avatar} alt="YouTubeImage" />
+							<p className='hader-dolli'>{user.first_name}</p>
+						</NavLink>
 				</div>
+					))}
 				
 				<div className='box'>
-					<div className='box-heding'>
+				{users.length > 0 &&
+					users.map((user) => (
+						<NavLink  key={user.id}  className='tdn' to={'video/' + user.id}>
+							<div className='box-heding'>
 						<div className="box-love">
 							<div className="box-image">
-								<img src={youTubeRasm10} alt="YouTubeImage" />
+								<img className="box-image" src={user.avatar} alt="YouTubeImage" />
 							</div>
 							<div className="box-text">
-								<h3 className='box-title'>Astronomy Or Astrology</h3>
+								<h3 className='box-title'>{user.last_name + " " + user.first_name}</h3>
 								<div className="box-flex">
-									<p className='box-like'>240k views  ·  4 months ago</p>
-									<p className='box-like'>Food & Drink</p>
+									<p className='box-like'>80k views  ·  3 days ago</p>
+									<p className='box-like'>{user.last_name}</p>
 								</div>
 							</div>
 						</div>
 					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm11} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Advertising Outdoors</h3>
-								<div className="box-flex">
-									<p className='box-like'>13k views  ·  15 days ago</p>
-									<p className='box-like'>Food & Drink</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm12} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Radio Astronomy</h3>
-								<div className="box-flex">
-									<p className='box-like'>1k views  ·  11 months ago</p>
-									<p className='box-like'>Food & Drink</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm13} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>A Good Autoresponder</h3>
-								<div className="box-flex">
-									<p className='box-like'>45k views  ·  2 months ago</p>
-									<p className='box-like'>Food & Drink</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm14} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Baby Monitor Technology</h3>
-								<div className="box-flex">
-									<p className='box-like'>86k views  ·  7 days ago</p>
-									<p className='box-like'>Food & Drink</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div className='box-heding'>
-						<div className="box-love">
-							<div className="box-image">
-								<img src={youTubeRasm15} alt="YouTubeImage" />
-							</div>
-							<div className="box-text">
-								<h3 className='box-title'>Asteroids</h3>
-								<div className="box-flex">
-									<p className='box-like'>123k views  ·  4 months ago</p>
-									<p className='box-like'>Food & Drink</p>
-								</div>
-							</div>
-						</div>
-					</div>
+						</NavLink>
+					))}
 				</div>
 			</main>
 

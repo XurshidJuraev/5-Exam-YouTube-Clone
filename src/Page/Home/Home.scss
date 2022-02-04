@@ -124,9 +124,7 @@
     display: flex;
     justify-content: space-between;
 
-    &-text{
-        margin-top: -19px;
-    }
+    
 }
 .box-flex{
     display: flex;
@@ -144,4 +142,14 @@
 .box-big{
     display: flex;
     justify-content: space-between;
+}
+.box-image{
+    width: 250px;
+    height: 150px;
+    border-radius: 10px;
+}
+.big-box-imag{
+    width: 540px;
+    height: 250px;
+    border-radius: 10px;
 }

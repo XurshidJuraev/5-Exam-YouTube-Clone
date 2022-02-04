@@ -52,13 +52,45 @@ function Profile() {
 				setLoading(false);
 			});
 	}, [id]);
+	// React.useEffect(() => {
+	// 	fetch('https://reqres.in/api/users/' + id)
+	// 		.then((response) => response.json())
+	// 		.then((data) => {
+	// 			setLoading(false);
+	// 			setUsers(data?.data);
+	// 		});
+
+	// 		(async () => {
+	// 			try {
+	// 				const response = await fetch('https://reqres.in/api/users');
+	// 				const data = await response.json();
+					
+					
+	// 				if (data?.data?.length > 0) {
+	// 					setUsers([...data.data]);
+	// 					setLoading(false);
+	// 				}
+	// 			} catch (err) {
+	// 				console.log(err);
+	// 			}
+	// 		})();
+	// }, [id]);
 	React.useEffect(() => {
-		fetch('https://reqres.in/api/users/' + id)
-			.then((response) => response.json())
-			.then((data) => {
-				setUsers(data?.data);
-				setLoading(false);
-			});
+		// Immediately invoked function
+		(async () => {
+			try {
+				const response = await fetch('https://reqres.in/api/users');
+				const data = await response.json();
+				
+				
+				if (data?.data?.length > 0) {
+					setUsers([...data.data]);
+					setLoading(false);
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		})();
 	}, [id]);
 
 	if (isLoading) {
@@ -144,7 +176,7 @@ function Profile() {
 
 				{users.length > 0 &&
 					users.map((user) => (
-						<NavLink className='tdn' to={'channel/' + user.id}>
+						<NavLink  key={user.id}  className='tdn' to={'/channel/' + user.id}>
 							<div className="flex">
 							<img className='user-imag_hedr' src={user.avatar} alt="YouTubeImage" />
 							<p className='hader-wit'>{user.first_name}</p>
@@ -178,7 +210,66 @@ function Profile() {
 					<li><p className='hader-wit'>Discussion</p></li>
 					<li><p className='hader-wit'>About</p></li>
 				</ul>
+
+
+				<div className="lion">
+					<div className="lion-image">
+						<div className="lion-one">
+						<NavLink to={'/video/' + user.id}>
+							<img className='lion-one' src={user.avatar} alt="YouTubeImage" />
+						</NavLink>
+				</div>
+						{/* <div className="lion-one">
+							<img className="lion-one" src={GlobalVideo} alt="YouTubeImage" />
+						</div> */}
+						<div className="lion-two">
+							<h2 className='lion-heading'>Choosing The Best Audio Player Software For Your Computer</h2>
+							<p className='lion-text'>Your cheap internet-based banner advertising will become one of the sought for ads there are. Today, the world of Internet advertising is rapidly evolving beyond banner ads and intrusive pop-ups. Bayles A common medium for advertising on the Internet is the use of banner ads. </p>
+							<p className='box-like'>34k views  ·  5 months ago</p>
+						</div>
+
+						<div className="lion-three">
+						<p className='hader-wit'>Recommended channel</p>
+						{users.length > 0 &&
+					users.slice(1, 4).map((user) => (
+						<div  key={user.id}  className="flex aic ">
+						<NavLink className='flex aic tdn' to={'/channel/' + user.id}>
+						<div className="flex hrow">
+							<img className='lion-tyher_imag' src={user.avatar} alt="YouTubeImage" />
+							<p className='hader-wit2'>{user.first_name}</p>
+						</div>
+						</NavLink>
+				</div>
+					))}
+						</div>
+					</div>
+				</div>
+
+				<div className="flex aic">
+				<p className='hader-dolli'>{user.first_name + ' ' + user.last_name} videos</p>
+				</div>
 				
+				<div className='box'>
+				{users.length > 0 &&
+					users.map((user) => (
+						<NavLink  key={user.id}  className='tdn' to={'/video/' + user.id}>
+							<div className='box-heding'>
+						<div className="box-love">
+							<div className="box-image">
+								<img className="box-image" src={user.avatar} alt="YouTubeImage" />
+							</div>
+							<div className="box-text">
+								<h3 className='box-title'>{user.last_name + " " + user.first_name}</h3>
+								<div className="box-flex">
+									<p className='box-like'>80k views  ·  3 days ago</p>
+									<p className='box-like'>{user.last_name}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+						</NavLink>
+					))}
+				</div>
 					{/* <img
 						src={user.avatar}
 						width={400}
